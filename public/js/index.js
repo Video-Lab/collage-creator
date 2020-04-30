@@ -1,10 +1,10 @@
 files = null;
 id = null;
 out = null;
-imageUploadButton = $("image-upload-button")
-resetFile = $("reset-file")
-imageCollage = $("image-collage")
-imageSave = $("image-save")
+imageUploadButton = $(".image-upload-button")
+resetFile = $(".reset-file")
+imageCollage = $(".image-collage")
+imageSave = $(".image-save")
 console.log(imageSave)
 
 console.log("Variables declared")

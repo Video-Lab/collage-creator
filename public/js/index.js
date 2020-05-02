@@ -76,7 +76,7 @@ imageUploadButton.click(function(){
 imageUploadButton.change(function(){
 	resetFile.css("display", "block")
 	files = document.querySelector(".image-upload-button").files
-	writeChoseFiles(files)
+	writeChosenFiles(files)
 	// if(areFiles(files)){
 	// 	writeChosenFiles(files)	
 	// } else {
@@ -95,13 +95,7 @@ colorSelectButton.change(function(){
 })
 
 generateCollage.click(function(){
-	if(color && files && out) {
-		$.ajax({
-			type: "POST",
-			url: "./public/py/generate_collage.py",
-			data: {"paths": }
-		})
-	}
+	
 })
 
 initializeSession()

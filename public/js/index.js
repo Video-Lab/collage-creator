@@ -1,11 +1,13 @@
 files = null;
 id = null;
 out = null;
+color = "#000000"
 imageUploadButton = $(".image-upload-button")
 resetFile = $(".reset-file")
 imageCollage = $(".image-collage")
 imageSave = $(".image-save")
 chosenFiles = $(".chosen-files")
+colorSelectButton = $(".color-select-button")
 
 
 function generateId(len) {
@@ -62,6 +64,10 @@ imageUploadButton.change(function(){
 
 resetFile.click(function(){
 	resetSelection()
+})
+
+colorSelectButton.change(function(){
+	color = colorSelectButton.val()
 })
 
 initializeSession()

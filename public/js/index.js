@@ -45,12 +45,23 @@ function writeChosenFiles(files){
 
 function resetSelection(){
 	chosenFiles.empty()
+	imageUploadButton.val('')
+	files = null;
+	resetFile.hide()
 }
+
+imageUploadButton.click(function(){
+	resetSelection()
+})
 
 imageUploadButton.change(function(){
 	resetFile.css("display", "block")
+	files = document.querySelector(".image-upload-button").files
+	writeChosenFiles(files)
+})
+
+resetFile.click(function(){
 	resetSelection()
-	writeChosenFiles(document.querySelector(".image-upload-button").files)
 })
 
 initializeSession()

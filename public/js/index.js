@@ -36,13 +36,16 @@ function diagnostics(){
 	console.log("Out file: " + out + ".png")
 }
 
-function writeChosenFiles(){
+function writeChosenFiles(files){
+	for(var i = 0; i < files.length; i++){
+		chosenFiles.append($("<p></p>").text(files[i].name).attr("class", "image-" + i))
+	}
 
 }
 
-imageUploadButton.click(function(){
+imageUploadButton.change(function(){
 	resetFile.css("display", "block")
-	writeChosenFiles()
+	writeChosenFiles(document.querySelector(".image-upload-button").files)
 })
 
 initializeSession()

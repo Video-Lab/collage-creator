@@ -40,7 +40,7 @@ function diagnostics(){
 
 function writeChosenFiles(files){
 	for(var i = 0; i < files.length; i++){
-		chosenFiles.append($("<p></p>").text(files[i].name).attr("class", "image-" + i))
+		chosenFiles.append($("<p></p>").text("Image " + (i+1) + ": " + files[i].name).attr("class", "image-" + i))
 	}
 
 }
@@ -52,6 +52,23 @@ function resetSelection(){
 	resetFile.hide()
 }
 
+// function areFiles(files){
+// 	types = ["image/png", "image/jpg", "image/jpeg"]
+// 	for(var i = 0; i < files.length; i++){
+// 		for(var j = 0; j < types.length; j++){
+// 			isImage = false;
+// 			console.log(files[i].type + " " + types[j])
+// 			if(files[i].type === types[j]) isImage = true;
+// 			if(!isImage) return false;
+// 		}
+// 	}
+// 	return true;
+// }
+
+function writeFileError(err){
+	chosenFiles.append($("<p></p>").text(err).css("color", "red"))
+}
+
 imageUploadButton.click(function(){
 	resetSelection()
 })
@@ -59,7 +76,14 @@ imageUploadButton.click(function(){
 imageUploadButton.change(function(){
 	resetFile.css("display", "block")
 	files = document.querySelector(".image-upload-button").files
-	writeChosenFiles(files)
+	writeChoseFiles(files)
+	// if(areFiles(files)){
+	// 	writeChosenFiles(files)	
+	// } else {
+	// 	resetSelection()
+	// 	writeFileError("Please upload either .png, .jpg, or .jpeg files.")
+	// }
+	
 })
 
 resetFile.click(function(){

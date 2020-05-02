@@ -43,8 +43,13 @@ function writeChosenFiles(files){
 
 }
 
+function resetSelection(){
+	chosenFiles.empty()
+}
+
 imageUploadButton.change(function(){
 	resetFile.css("display", "block")
+	resetSelection()
 	writeChosenFiles(document.querySelector(".image-upload-button").files)
 })
 

@@ -8,7 +8,7 @@ imageCollage = $(".image-collage")
 imageSave = $(".image-save")
 chosenFiles = $(".chosen-files")
 colorSelectButton = $(".color-select-button")
-
+generateCollage = $(".generate-collage")
 
 function generateId(len) {
 	id = ""
@@ -92,6 +92,16 @@ resetFile.click(function(){
 
 colorSelectButton.change(function(){
 	color = colorSelectButton.val()
+})
+
+generateCollage.click(function(){
+	if(color && files && out) {
+		$.ajax({
+			type: "POST",
+			url: "./public/py/generate_collage.py",
+			data: {"paths": }
+		})
+	}
 })
 
 initializeSession()

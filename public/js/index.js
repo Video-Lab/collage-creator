@@ -61,7 +61,18 @@ function resetSelection(){
 }
 
 function writeFileError(err){
+	chosenFiles.empty()
 	chosenFiles.append($("<p></p>").text(err).css("color", "red"))
+}
+
+
+function getDataURLs(files) {
+	var urls = []
+	var reader = new FileReader()
+	for(var i = 0; i < files.length; i++){
+		urls.push(reader.readAsDataURL(files[i]))
+	}
+	return urls;
 }
 
 imageUploadButton.click(function(){
@@ -89,6 +100,12 @@ colorSelectButton.change(function(){
 })
 
 generateCollage.click(function(){
+	if(files) {
+		images = getDataURLs(files)
+		console.log(images)	
+	} else {
+		writeFileError("Please upload files before generating a collage.")
+	}
 	
 })
 

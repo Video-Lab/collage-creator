@@ -102,15 +102,31 @@ function topRightCorner(img, x=0, y=0) {
 }
 
 function bottomLeftCorner(img, x=0, y=0) {
-	return [x, y-img.height]
+	return [x, y+img.height]
 }
 
 function bottomRightCorner(img, x=0, y=0) {
-	return [x+img.width, y-img.height]
+	return [x+img.width, y+img.height]
 }
 
 function center(img, x=0, y=0) {
-	return [x+(Math.floor(img.width/2)),y-(Math.floor(img.height/2))]
+	return [x+(Math.floor(img.width/2)),y+(Math.floor(img.height/2))]
+}
+
+function topFace(img, x=0, y=0) {
+	return y;
+}
+
+function bottomFace(img, x=0, y=0) {
+	return y+img.height;
+}
+
+function leftFace(img, x=0, y=0) {
+	return x;
+}
+
+function rightFace(img, x=0, y=0) {
+	return x+img.width;
 }
 
 imageUploadButton.click(function(){

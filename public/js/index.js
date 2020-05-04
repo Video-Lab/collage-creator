@@ -1,15 +1,19 @@
 var files = null;
 var images = null;
+var urls = null;
 var id = null;
 var out = null;
 var color = "#000000"
 var imageUploadButton = $(".image-upload-button")
 var resetFile = $(".reset-file")
 var imageCollage = $(".image-collage")
+var imageCollageBox = document.querySelector(".image-collage-box")
 var imageSave = $(".image-save")
 var chosenFiles = $(".chosen-files")
 var colorSelectButton = $(".color-select-button")
 var generateCollage = $(".generate-collage")
+var c = document.querySelector(".image-collage-canvas")
+var ctx = c.getContext("2d")
 
 function generateId(len) {
 	var final = ""
@@ -57,6 +61,8 @@ function resetSelection(){
 	chosenFiles.empty()
 	imageUploadButton.val('')
 	files = null;
+	urls = null;
+	images = null;
 	resetFile.hide()
 }
 
@@ -72,6 +78,21 @@ function getDataURLs(files) {
 	}
 	return urls;
 }
+
+function getImages(urls) {
+	var imgs = []
+	for(var i = 0; i < urls.length; i++){
+		img = document.createElement('img')
+		img.id = 'image-' + i
+		img.src = urls[i]
+		img.style.display = "none"
+
+		imgs.push(imageCollageBox.appendChild(img))
+		// imgs.push(imageCollageBox.append($("<img style='display: none;'>").attr('id', 'image-'+i).attr('src', urls[i])))
+	}
+	return imgs;
+}
+
 
 imageUploadButton.click(function(){
 	resetSelection()
@@ -99,7 +120,8 @@ colorSelectButton.change(function(){
 
 generateCollage.click(function(){
 	if(files) {
-		images = getDataURLs(files)
+		urls = getDataURLs(files)
+		images = getImages(urls)
 		console.log(images)	
 	} else {
 		writeFileError("Please upload files before generating a collage.")

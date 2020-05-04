@@ -1,22 +1,23 @@
-files = null;
-id = null;
-out = null;
-color = "#000000"
-imageUploadButton = $(".image-upload-button")
-resetFile = $(".reset-file")
-imageCollage = $(".image-collage")
-imageSave = $(".image-save")
-chosenFiles = $(".chosen-files")
-colorSelectButton = $(".color-select-button")
-generateCollage = $(".generate-collage")
+var files = null;
+var images = null;
+var id = null;
+var out = null;
+var color = "#000000"
+var imageUploadButton = $(".image-upload-button")
+var resetFile = $(".reset-file")
+var imageCollage = $(".image-collage")
+var imageSave = $(".image-save")
+var chosenFiles = $(".chosen-files")
+var colorSelectButton = $(".color-select-button")
+var generateCollage = $(".generate-collage")
 
 function generateId(len) {
-	id = ""
-	sel = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
+	var final = ""
+	var sel = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890"
 	for(var i = 0; i < len; i++){
-		id += sel[Math.floor(Math.random() * sel.length)];
+		final += sel[Math.floor(Math.random() * sel.length)];
 	}
-	return id;
+	return final;
 }
 
 function setOutPath(id) {
@@ -45,25 +46,19 @@ function writeChosenFiles(files){
 
 }
 
+function areFiles(files){
+	for(var i = 0; i < files.length; i++){
+		if(files[i].type === "" || !files[i].type.match("image.*")) return false;
+	}
+	return true;
+}
+
 function resetSelection(){
 	chosenFiles.empty()
 	imageUploadButton.val('')
 	files = null;
 	resetFile.hide()
 }
-
-// function areFiles(files){
-// 	types = ["image/png", "image/jpg", "image/jpeg"]
-// 	for(var i = 0; i < files.length; i++){
-// 		for(var j = 0; j < types.length; j++){
-// 			isImage = false;
-// 			console.log(files[i].type + " " + types[j])
-// 			if(files[i].type === types[j]) isImage = true;
-// 			if(!isImage) return false;
-// 		}
-// 	}
-// 	return true;
-// }
 
 function writeFileError(err){
 	chosenFiles.append($("<p></p>").text(err).css("color", "red"))
@@ -76,13 +71,12 @@ imageUploadButton.click(function(){
 imageUploadButton.change(function(){
 	resetFile.css("display", "block")
 	files = document.querySelector(".image-upload-button").files
-	writeChosenFiles(files)
-	// if(areFiles(files)){
-	// 	writeChosenFiles(files)	
-	// } else {
-	// 	resetSelection()
-	// 	writeFileError("Please upload either .png, .jpg, or .jpeg files.")
-	// }
+	if(areFiles(files)){
+		writeChosenFiles(files)
+	} else {
+		resetSelection()
+		writeFileError("Please upload either .png, .jpg, or .jpeg files.")
+	}
 	
 })
 

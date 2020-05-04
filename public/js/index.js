@@ -93,6 +93,25 @@ function getImages(urls) {
 	return imgs;
 }
 
+function topLeftCorner(img, x=0, y=0) {
+	return [x,y]
+}
+
+function topRightCorner(img, x=0, y=0) {
+	return [x+img.width, y]
+}
+
+function bottomLeftCorner(img, x=0, y=0) {
+	return [x, y-img.height]
+}
+
+function bottomRightCorner(img, x=0, y=0) {
+	return [x+img.width, y-img.height]
+}
+
+function center(img, x=0, y=0) {
+	return [x+(Math.floor(img.width/2)),y-(Math.floor(img.height/2))]
+}
 
 imageUploadButton.click(function(){
 	resetSelection()

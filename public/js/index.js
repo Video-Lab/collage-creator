@@ -65,12 +65,10 @@ function writeFileError(err){
 	chosenFiles.append($("<p></p>").text(err).css("color", "red"))
 }
 
-
 function getDataURLs(files) {
 	var urls = []
-	var reader = new FileReader()
 	for(var i = 0; i < files.length; i++){
-		urls.push(reader.readAsDataURL(files[i]))
+		urls.push(URL.createObjectURL(files[i]))	
 	}
 	return urls;
 }

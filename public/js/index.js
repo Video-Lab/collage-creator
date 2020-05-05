@@ -50,7 +50,7 @@ function diagnostics(){
 
 function writeChosenFiles(files){
 	for(var i = 0; i < files.length; i++){
-		chosenFiles.append($("<p></p>").text("Image " + (i+1) + ": " + files[i].name).attr("class", "image-" + i))
+		chosenFiles.append($("<p></p>").text("Image " + (i+1) + ": " + files[i].name).attr("class", "image-text-" + i))
 	}
 
 }
@@ -186,8 +186,6 @@ function getCanvasDimensions(imgMap) {
 			widths.push(imgMap[i][j].width)
 		}
 
-		console.log(widths)
-		console.log(heights)
 		width += max(widths);
 		height += max(heights);
 		widths = [];
@@ -206,8 +204,8 @@ function max(arr) {
 }
 
 function setupCanvas(width, height, color){
-	ctx.canvas.width = width;
-	ctx.canvas.height = height;
+	canvas.width = width;
+	canvas.height = height;
 	ctx.fillStyle = color;
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 }
@@ -218,15 +216,23 @@ function drawImages(imgMap) {
 	var ypts = [];
 
 	for(var i = 0; i < imgMap.length; i++) {
-		for(var j = 0; i < imgMap[i].length; j++) {
-			ctx.drawImage(imgMap[i][j], xpt, ypt)
-			xpt += imageMap[i][j].width + gap
-			ypts.push(imageMap[i][j].height)
+		for(var j = 0; j < imgMap[i].length; j++) {
+			ctx.drawImage(imgMap[i][j], dx=xpt, dy=ypt)
+			xpt += imgMap[i][j].width + gap
+			ypts.push(imgMap[i][j].height)
 		}
 		ypt += max(ypts) + gap
+		xpt = gap
 	}
 }
 
+
+function drawImageCollage(images, clr){
+	imgMap = generateImageMap(images)
+	dimensions = getCanvasDimensions(imgMap)
+	setupCanvas(dimensions[0], dimensions[1], clr)
+	drawImages(imgMap)
+}
 
 imageUploadButton.click(function(){
 	resetSelection()
@@ -256,7 +262,8 @@ generateCollage.click(function(){
 	if(files) {
 		urls = getDataURLs(files)
 		images = getImages(urls)
-		console.log(images)	
+		canvas.style.display = "block";
+		drawImageCollage(images, color)
 	} else {
 		writeFileError("Please upload files before generating a collage.")
 	}

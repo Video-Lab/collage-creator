@@ -3,6 +3,7 @@ var images = null;
 var urls = null;
 var id = null;
 var out = null;
+var gap = 10;
 var faces = ["top", "right", "left", "right"]
 var faceFunctionMap = {"top": topFace, "right": rightFace, "left": leftFace, "right": rightFace}
 var corners = ["topRight", "topLeft", "bottomRight", "bottomLeft"]
@@ -117,20 +118,72 @@ function center(img, x=0, y=0) {
 	return [x+(Math.floor(img.width/2)),y+(Math.floor(img.height/2))]
 }
 
-function topFace(img, x=0, y=0) {
+function topFace(img, y=0) {
 	return y;
 }
 
-function bottomFace(img, x=0, y=0) {
+function bottomFace(img, y=0) {
 	return y+img.height;
 }
 
-function leftFace(img, x=0, y=0) {
+function leftFace(img, x=0) {
 	return x;
 }
 
-function rightFace(img, x=0, y=0) {
+function rightFace(img, x=0) {
 	return x+img.width;
+}
+
+function shapeImageMap(imgLen) {
+	// base = Math.floor(Math.sqrt(imgLen))
+	// extraBase = base
+	// if((imgLen - base*base) % 2 != 0 && base % 2 == 0) extraBase++; 
+	// extraRows = Math.ceil((imgLen - base*base) / extraBase)
+	// imgMap = []
+	// imgMap.length = base
+	// console.log(base)
+	// console.log(extraBase)
+	// for(var i = 0; i < base; i++){
+	// 	imgRow = []
+	// 	imgRow.length = base;
+	// 	imgMap[i] = imgRow
+	// }
+
+	// exImgMap = []
+	// exImgMap.length = extraRows
+	// for(var i = 0; i < exImgMap.length; i++){
+	// 	imgRow = []
+	// 	imgRow.length = extraBase
+	// 	imgMap[i] = imgRow
+	// }
+
+	// if(exImgMap) imgMap = imgMap.concat(exImgMap);
+
+	// return imgMap;
+
+	base = Math.ceil(Math.sqrt(imgLen))
+	extra = base*base - imgLen
+	imgMap = []
+	imgMap.length = base;
+	for(var i = 0; i < base; i++) {
+		row = []
+		row.length = base;
+		imgMap[i] = row;
+	}
+
+	if(extra !== 0) {
+		if(extra % 2 !== 0 && base % 2 === 0) imgMap[base-1].length = imgMap[base-1].length + 1;			
+	}
+
+	return imgMap;
+}
+
+function fillImageMap(imgs) {
+
+}
+
+function generateImageMap(imgs) {
+
 }
 
 imageUploadButton.click(function(){

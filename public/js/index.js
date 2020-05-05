@@ -178,7 +178,7 @@ function shapeImageMap(imgLen) {
 
 // 	return imgMap;
 
-	base = Math.floor(Math.sqrt(imgLen))
+	base = Math.round(Math.sqrt(imgLen))
 	extra = imgLen-base*base
 	imgMap = []
 	imgMap.length = base;
@@ -189,9 +189,14 @@ function shapeImageMap(imgLen) {
 	}
 
 	if(extra !== 0) {
-		row = []
-		row.length = extra;
-		imgMap.push(row)
+		if(extra > 0) {
+			row = []
+			row.length = extra;
+			imgMap.push(row)		
+		} else {
+			imgMap[imgMap.length-1].length = imgMap[imgMap.length-1].length-Math.abs(extra);
+		}
+
 	}
 	return imgMap;
 }

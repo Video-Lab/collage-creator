@@ -217,6 +217,27 @@ function generateImageMap(imgs) {
 	return fillImageMap(imgs, shapeImageMap(imgs.length))
 }
 
+function getCanvasDimensions(imgMap) {
+	var width = 0;
+	var height = 0;
+	var widths = [];
+	var heights = [];
+	for(var i = 0; i < imgMap.length; i++) {
+		
+		for(var j = 0; j < imgMap[i].length; j++) {
+			heights.push(imgMap[i][j].height)
+			widths.push(imgMap[i][j].width)
+		}
+
+		width += Math.max(widths);
+		height += Math.max(heights);
+		widths = [];
+		heights = [];
+	}
+
+	return [width, height];
+}
+
 imageUploadButton.click(function(){
 	resetSelection()
 })

@@ -4,7 +4,7 @@ var urls = null;
 var id = null;
 var out = null;
 var gap = 10;
-var previewRatio = 8;
+var previewRatio = 5;
 var faces = ["top", "right", "left", "right"]
 var faceFunctionMap = {"top": topFace, "right": rightFace, "left": leftFace, "right": rightFace}
 var corners = ["topRight", "topLeft", "bottomRight", "bottomLeft"]
@@ -40,7 +40,7 @@ function initializeSession() {
 	id = generateId(len=9)
 	out = setOutPath(id)
 	resetFile.css({"display": "none"})
-	imageSave.css({"display": "none"})
+	imageCollageBox.style.display = "none";
 	console.log("Session initialized")
 }
 
@@ -74,6 +74,7 @@ function resetSelection(){
 	imageCollage.attr('src', '')
 	imageCollage.css('height', 0)
 	imageCollage.css('width', 0)
+	imageCollageBox.style.display = "none";
 	resetFile.hide()
 }
 
@@ -264,6 +265,14 @@ function pipeCanvasToImage() {
 	imageCollage.attr('src', url)
 }
 
+function downloadImage(url) {
+    var downloader = document.createElement('a');
+    downloader.download = 'collage.png';
+    downloader.href = url;
+    document.body.appendChild(downloader);
+    downloader.click()
+}
+
 imageUploadButton.click(function(){
 	resetSelection()
 })
@@ -290,6 +299,7 @@ colorSelectButton.change(function(){
 
 generateCollage.click(function(){
 	if(files) {
+		imageCollageBox.style.display = "block";
 		urls = getDataURLs(files)
 		images = getImages(urls)
 		for(var i = 0; i < images.length; i++) {
@@ -302,6 +312,10 @@ generateCollage.click(function(){
 		writeFileError("Please upload files before generating a collage.")
 	}
 	
+})
+
+imageSave.click(function(){
+	downloadImage(imageCollage.attr('src'))
 })
 
 initializeSession()

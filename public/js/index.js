@@ -161,8 +161,25 @@ function shapeImageMap(imgLen) {
 
 	// return imgMap;
 
-	base = Math.ceil(Math.sqrt(imgLen))
-	extra = base*base - imgLen
+// 	base = Math.ceil(Math.sqrt(imgLen))
+// 	extra = base*base - imgLen
+// 	imgMap = []
+// 	imgMap.length = base;
+// 	for(var i = 0; i < base; i++) {
+// 		row = []
+// 		row.length = base;
+// 		imgMap[i] = row;
+// 	}
+
+// 	if(extra !== 0) {
+// 		// if(extra % 2 !== 0 && base % 2 === 0) imgMap[base-1].length = imgMap[base-1].length + 1;
+// 		imgMap[base-1].length = extra;		
+// 	}
+
+// 	return imgMap;
+
+	base = Math.floor(Math.sqrt(imgLen))
+	extra = imgLen-base*base
 	imgMap = []
 	imgMap.length = base;
 	for(var i = 0; i < base; i++) {
@@ -172,13 +189,25 @@ function shapeImageMap(imgLen) {
 	}
 
 	if(extra !== 0) {
-		if(extra % 2 !== 0 && base % 2 === 0) imgMap[base-1].length = imgMap[base-1].length + 1;			
+		row = []
+		row.length = extra;
+		imgMap.push(row)
 	}
-
 	return imgMap;
 }
 
-function fillImageMap(imgs) {
+function fillImageMap(imgs, imgMap) {
+	imgIndex = 0;
+	for(var i = 0; i < imgMap.length-1; i++) {
+		for(var j = 0; j < imgMap[i].length; j++) {
+			imgMap[i][j] = imgs[imgIndex];
+			imgIndex++;
+		}
+	}
+
+	if(imgMap[0].length % 2 === 0) {
+
+	}
 
 }
 

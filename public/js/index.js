@@ -223,19 +223,29 @@ function getCanvasDimensions(imgMap) {
 	var widths = [];
 	var heights = [];
 	for(var i = 0; i < imgMap.length; i++) {
-		
+
 		for(var j = 0; j < imgMap[i].length; j++) {
 			heights.push(imgMap[i][j].height)
 			widths.push(imgMap[i][j].width)
 		}
 
-		width += Math.max(widths);
-		height += Math.max(heights);
+		console.log(widths)
+		console.log(heights)
+		width += max(widths);
+		height += max(heights);
 		widths = [];
 		heights = [];
 	}
 
 	return [width, height];
+}
+
+function max(arr) {
+	var maximum = -Infinity;
+	for(var i = 0; i < arr.length; i++) {
+		if(arr[i] > maximum) maximum = arr[i];
+	}
+	return maximum;
 }
 
 imageUploadButton.click(function(){

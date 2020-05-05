@@ -4,6 +4,7 @@ var urls = null;
 var id = null;
 var out = null;
 var gap = 10;
+var previewRatio = 8;
 var faces = ["top", "right", "left", "right"]
 var faceFunctionMap = {"top": topFace, "right": rightFace, "left": leftFace, "right": rightFace}
 var corners = ["topRight", "topLeft", "bottomRight", "bottomLeft"]
@@ -19,6 +20,8 @@ var colorSelectButton = $(".color-select-button")
 var generateCollage = $(".generate-collage")
 var canvas = document.querySelector(".image-collage-canvas")
 var ctx = canvas.getContext("2d")
+var nativeWidth = window.innerWidth;
+var nativeHeight = window.innerHeight;
 
 function generateId(len) {
 	var final = ""
@@ -37,7 +40,6 @@ function initializeSession() {
 	id = generateId(len=9)
 	out = setOutPath(id)
 	resetFile.css({"display": "none"})
-	imageCollage.css({"opacity": "0"})
 	imageSave.css({"display": "none"})
 	console.log("Session initialized")
 }
@@ -68,7 +70,10 @@ function resetSelection(){
 	files = null;
 	urls = null;
 	images = null;
-	context.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	imageCollage.attr('src', '')
+	imageCollage.css('height', 0)
+	imageCollage.css('width', 0)
 	resetFile.hide()
 }
 
@@ -250,6 +255,15 @@ function drawImageCollage(images, clr){
 	drawImages(imgMap)
 }
 
+function pipeCanvasToImage() {
+	var aspRatio = canvas.width/canvas.height;
+
+	var url = canvas.toDataURL("image/png", 1.0)
+	imageCollage.css('width', nativeWidth/previewRatio);
+	imageCollage.css('height', nativeWidth/(previewRatio*aspRatio));
+	imageCollage.attr('src', url)
+}
+
 imageUploadButton.click(function(){
 	resetSelection()
 })
@@ -278,10 +292,10 @@ generateCollage.click(function(){
 	if(files) {
 		urls = getDataURLs(files)
 		images = getImages(urls)
-		canvas.style.display = "block";
 		for(var i = 0; i < images.length; i++) {
 			images[images.length-1].addEventListener('load', function(){
 				drawImageCollage(images, color)
+				pipeCanvasToImage()
 			})
 		}
 	} else {

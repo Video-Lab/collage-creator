@@ -17,8 +17,8 @@ var imageSave = $(".image-save")
 var chosenFiles = $(".chosen-files")
 var colorSelectButton = $(".color-select-button")
 var generateCollage = $(".generate-collage")
-var c = document.querySelector(".image-collage-canvas")
-var ctx = c.getContext("2d")
+var canvas = document.querySelector(".image-collage-canvas")
+var ctx = canvas.getContext("2d")
 
 function generateId(len) {
 	var final = ""
@@ -135,49 +135,6 @@ function rightFace(img, x=0) {
 }
 
 function shapeImageMap(imgLen) {
-	// base = Math.floor(Math.sqrt(imgLen))
-	// extraBase = base
-	// if((imgLen - base*base) % 2 != 0 && base % 2 == 0) extraBase++; 
-	// extraRows = Math.ceil((imgLen - base*base) / extraBase)
-	// imgMap = []
-	// imgMap.length = base
-	// console.log(base)
-	// console.log(extraBase)
-	// for(var i = 0; i < base; i++){
-	// 	imgRow = []
-	// 	imgRow.length = base;
-	// 	imgMap[i] = imgRow
-	// }
-
-	// exImgMap = []
-	// exImgMap.length = extraRows
-	// for(var i = 0; i < exImgMap.length; i++){
-	// 	imgRow = []
-	// 	imgRow.length = extraBase
-	// 	imgMap[i] = imgRow
-	// }
-
-	// if(exImgMap) imgMap = imgMap.concat(exImgMap);
-
-	// return imgMap;
-
-// 	base = Math.ceil(Math.sqrt(imgLen))
-// 	extra = base*base - imgLen
-// 	imgMap = []
-// 	imgMap.length = base;
-// 	for(var i = 0; i < base; i++) {
-// 		row = []
-// 		row.length = base;
-// 		imgMap[i] = row;
-// 	}
-
-// 	if(extra !== 0) {
-// 		// if(extra % 2 !== 0 && base % 2 === 0) imgMap[base-1].length = imgMap[base-1].length + 1;
-// 		imgMap[base-1].length = extra;		
-// 	}
-
-// 	return imgMap;
-
 	base = Math.round(Math.sqrt(imgLen))
 	extra = imgLen-base*base
 	imgMap = []
@@ -247,6 +204,29 @@ function max(arr) {
 	}
 	return maximum;
 }
+
+function setupCanvas(width, height, color){
+	ctx.canvas.width = width;
+	ctx.canvas.height = height;
+	ctx.fillStyle = color;
+	ctx.fillRect(0,0,canvas.width,canvas.height);
+}
+
+function drawImages(imgMap) {
+	var xpt = gap;
+	var ypt = gap;
+	var ypts = [];
+
+	for(var i = 0; i < imgMap.length; i++) {
+		for(var j = 0; i < imgMap[i].length; j++) {
+			ctx.drawImage(imgMap[i][j], xpt, ypt)
+			xpt += imageMap[i][j].width + gap
+			ypts.push(imageMap[i][j].height)
+		}
+		ypt += max(ypts) + gap
+	}
+}
+
 
 imageUploadButton.click(function(){
 	resetSelection()

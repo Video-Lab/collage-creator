@@ -179,12 +179,16 @@ function getCanvasDimensions(imgMap) {
 	var height = 0;
 	var widths = [];
 	var heights = [];
+	var tempWidth = 0;
 	for(var i = 0; i < imgMap.length; i++) {
 
 		for(var j = 0; j < imgMap[i].length; j++) {
 			heights.push(imgMap[i][j].height)
-			widths.push(imgMap[i][j].width)
+			tempWidth += imgMap[i][j].width;
 		}
+
+		widths.push(tempWidth);
+		tempWidth = 0;
 
 		width += max(widths);
 		height += max(heights);
@@ -203,6 +207,10 @@ function max(arr) {
 	return maximum;
 }
 
+function calculateGap(img) {
+	return (0.03*((img.width+img.height)/2))
+}
+
 function setupCanvas(width, height, color){
 	canvas.width = width;
 	canvas.height = height;
@@ -218,6 +226,7 @@ function drawImages(imgMap) {
 	for(var i = 0; i < imgMap.length; i++) {
 		for(var j = 0; j < imgMap[i].length; j++) {
 			ctx.drawImage(imgMap[i][j], dx=xpt, dy=ypt)
+			gap = calculateGap(imgMap[i][j])
 			xpt += imgMap[i][j].width + gap
 			ypts.push(imgMap[i][j].height)
 		}
@@ -225,7 +234,6 @@ function drawImages(imgMap) {
 		xpt = gap
 	}
 }
-
 
 function drawImageCollage(images, clr){
 	imgMap = generateImageMap(images)
@@ -263,7 +271,11 @@ generateCollage.click(function(){
 		urls = getDataURLs(files)
 		images = getImages(urls)
 		canvas.style.display = "block";
-		drawImageCollage(images, color)
+		for(var i = 0; i < images.length; i++) {
+			images[images.length-1].addEventListener('load', function(){
+				drawImageCollage(images, color)
+			})
+		}
 	} else {
 		writeFileError("Please upload files before generating a collage.")
 	}

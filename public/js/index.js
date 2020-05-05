@@ -265,12 +265,14 @@ function pipeCanvasToImage() {
 	imageCollage.attr('src', url)
 }
 
-function downloadImage(url) {
+function downloadImage() {
+	var url = imageCollage.attr('src')
     var downloader = document.createElement('a');
     downloader.download = 'collage.png';
     downloader.href = url;
     document.body.appendChild(downloader);
     downloader.click()
+    downloader.remove()
 }
 
 imageUploadButton.click(function(){
@@ -315,7 +317,7 @@ generateCollage.click(function(){
 })
 
 imageSave.click(function(){
-	downloadImage(imageCollage.attr('src'))
+	downloadImage()
 })
 
 initializeSession()

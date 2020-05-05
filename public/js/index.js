@@ -214,7 +214,7 @@ function fillImageMap(imgs, imgMap) {
 }
 
 function generateImageMap(imgs) {
-
+	return fillImageMap(imgs, shapeImageMap(imgs.length))
 }
 
 imageUploadButton.click(function(){

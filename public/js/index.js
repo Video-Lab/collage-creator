@@ -210,10 +210,7 @@ function fillImageMap(imgs, imgMap) {
 		}
 	}
 
-	if(imgMap[0].length % 2 === 0) {
-
-	}
-
+	return imgMap;
 }
 
 function generateImageMap(imgs) {

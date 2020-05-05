@@ -177,9 +177,16 @@ function generateImageMap(imgs) {
 function getCanvasDimensions(imgMap) {
 	var width = 0;
 	var height = 0;
+	var xgap = 0;
+	var ygap = imgMap.length+1;
 	var widths = [];
 	var heights = [];
 	var tempWidth = 0;
+	var xgaps = [];
+	var ygaps = [];
+	var numxGaps = 0;
+	var numYGaps = 0;
+
 	for(var i = 0; i < imgMap.length; i++) {
 
 		for(var j = 0; j < imgMap[i].length; j++) {
@@ -187,16 +194,20 @@ function getCanvasDimensions(imgMap) {
 			tempWidth += imgMap[i][j].width;
 		}
 
+		xgaps.push(imgMap[i].length+1)
+
 		widths.push(tempWidth);
 		tempWidth = 0;
 
-		width += max(widths);
 		height += max(heights);
-		widths = [];
 		heights = [];
 	}
+	xgap = max(xgaps)
+	xgaps = [];
+	width = max(widths);
+	widths = [];
 
-	return [width, height];
+	return [width+(xgap*gap), height+(ygap*gap)];
 }
 
 function max(arr) {
@@ -205,10 +216,6 @@ function max(arr) {
 		if(arr[i] > maximum) maximum = arr[i];
 	}
 	return maximum;
-}
-
-function calculateGap(img) {
-	return (0.03*((img.width+img.height)/2))
 }
 
 function setupCanvas(width, height, color){
@@ -226,7 +233,7 @@ function drawImages(imgMap) {
 	for(var i = 0; i < imgMap.length; i++) {
 		for(var j = 0; j < imgMap[i].length; j++) {
 			ctx.drawImage(imgMap[i][j], dx=xpt, dy=ypt)
-			gap = calculateGap(imgMap[i][j])
+			// gap = calculateGap(imgMap[i][j])
 			xpt += imgMap[i][j].width + gap
 			ypts.push(imgMap[i][j].height)
 		}

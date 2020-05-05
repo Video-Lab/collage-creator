@@ -203,7 +203,7 @@ function shapeImageMap(imgLen) {
 
 function fillImageMap(imgs, imgMap) {
 	imgIndex = 0;
-	for(var i = 0; i < imgMap.length-1; i++) {
+	for(var i = 0; i < imgMap.length; i++) {
 		for(var j = 0; j < imgMap[i].length; j++) {
 			imgMap[i][j] = imgs[imgIndex];
 			imgIndex++;

@@ -68,6 +68,7 @@ function resetSelection(){
 	files = null;
 	urls = null;
 	images = null;
+	context.clearRect(0, 0, canvas.width, canvas.height);
 	resetFile.hide()
 }
 

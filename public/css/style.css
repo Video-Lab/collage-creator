@@ -2,10 +2,12 @@
 	text-align: center;
 	font-size: 6em;
 	font-weight: 800;
-	min-height: 15vh;
-	background: ;
-	padding: 0;
 	margin-bottom: 5vh;
+	
+}
+
+.header-box {
+	min-height: 15vh;
 	background: #94c1ff;
 }
 
@@ -33,4 +35,13 @@ p[class^="image-text-"] {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+}
+
+.desc {
+	text-align: center;
+	font-size: 25px;
+	margin: 15px;
+	display: block;
+	padding-bottom: 2vh;
+
 }

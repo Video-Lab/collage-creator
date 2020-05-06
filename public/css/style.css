@@ -1,0 +1,36 @@
+.header {
+	text-align: center;
+	font-size: 6em;
+	font-weight: 800;
+	min-height: 15vh;
+	background: ;
+	padding: 0;
+	margin-bottom: 5vh;
+	background: #94c1ff;
+}
+
+input,button,label {
+	display: block;
+	margin: 20px;
+}
+
+.color-select-button {
+	display: inline-block;
+	margin: 5px;
+}
+
+p[class^="image-text-"] {
+	margin: 20px;
+}
+
+.image-collage-box {
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}

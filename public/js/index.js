@@ -5,10 +5,6 @@ var id = null;
 var out = null;
 var gap = 10;
 var previewRatio = 5;
-var faces = ["top", "right", "left", "right"]
-var faceFunctionMap = {"top": topFace, "right": rightFace, "left": leftFace, "right": rightFace}
-var corners = ["topRight", "topLeft", "bottomRight", "bottomLeft"]
-var cornerFunctionMap = {"topRight": topRightCorner, "topLeft": topLeftCorner, "bottomRight": bottomRightCorner, "bottomLeft": bottomLeftCorner}
 var color = "#000000"
 var imageUploadButton = $(".image-upload-button")
 var resetFile = $(".reset-file")
@@ -103,42 +99,6 @@ function getImages(urls) {
 		// imgs.push(imageCollageBox.append($("<img style='display: none;'>").attr('id', 'image-'+i).attr('src', urls[i])))
 	}
 	return imgs;
-}
-
-function topLeftCorner(img, x=0, y=0) {
-	return [x,y]
-}
-
-function topRightCorner(img, x=0, y=0) {
-	return [x+img.width, y]
-}
-
-function bottomLeftCorner(img, x=0, y=0) {
-	return [x, y+img.height]
-}
-
-function bottomRightCorner(img, x=0, y=0) {
-	return [x+img.width, y+img.height]
-}
-
-function center(img, x=0, y=0) {
-	return [x+(Math.floor(img.width/2)),y+(Math.floor(img.height/2))]
-}
-
-function topFace(img, y=0) {
-	return y;
-}
-
-function bottomFace(img, y=0) {
-	return y+img.height;
-}
-
-function leftFace(img, x=0) {
-	return x;
-}
-
-function rightFace(img, x=0) {
-	return x+img.width;
 }
 
 function shapeImageMap(imgLen) {
@@ -301,7 +261,7 @@ colorSelectButton.change(function(){
 
 generateCollage.click(function(){
 	if(files) {
-		imageCollageBox.style.display = "block";
+		imageCollageBox.style.display = "flex";
 		urls = getDataURLs(files)
 		images = getImages(urls)
 		for(var i = 0; i < images.length; i++) {

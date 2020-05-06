@@ -4,7 +4,7 @@ var urls = null;
 var id = null;
 var out = null;
 var gap = 10;
-var previewRatio = 5;
+var previewRatio = 3;
 var color = "#000000"
 var imageUploadButton = $(".image-upload-button")
 var resetFile = $(".reset-file")
@@ -15,6 +15,7 @@ var chosenFiles = $(".chosen-files")
 var colorSelectButton = $(".color-select-button")
 var generateCollage = $(".generate-collage")
 var canvas = document.querySelector(".image-collage-canvas")
+var newCollage = $(".new-collage")
 var ctx = canvas.getContext("2d")
 var nativeWidth = window.innerWidth;
 var nativeHeight = window.innerHeight;
@@ -70,6 +71,7 @@ function resetSelection(){
 	imageCollage.attr('src', '')
 	imageCollage.css('height', 0)
 	imageCollage.css('width', 0)
+	document.querySelector(".color-select-button").value = "#000000";
 	imageCollageBox.style.display = "none";
 	resetFile.hide()
 }
@@ -278,6 +280,10 @@ generateCollage.click(function(){
 
 imageSave.click(function(){
 	downloadImage()
+})
+
+newCollage.click(function(){
+	resetSelection()
 })
 
 initializeSession()
